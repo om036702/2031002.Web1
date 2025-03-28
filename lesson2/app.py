@@ -1,6 +1,10 @@
-from flask import Flask, render_template
+# lesson2/app.py
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template("index.html")
+    message = ""
+    if request.method == "POST":
+        message = request.form.get("message")
+    return render_template("index.html", message=message)
